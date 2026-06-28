@@ -89,7 +89,7 @@ for order in orders:
 
 print(orders)
 
-                    # 문제 7. 기술통계 / 구매금액에 대한 개수, 합계, 평균, 최대값, 최소값을 출력하시오.
+                    # 문제7) 기술통계 / 구매금액에 대한 개수, 합계, 평균, 최대값, 최소값을 출력하시오.
 
 prices=[]
 
@@ -102,18 +102,63 @@ print(sum(prices)/len(prices))
 print(max(prices))
 print(min(prices))
 
-                    # 문제 8. 지역별 평균 구매금액을 구하시오.
+                    # 문제8) 지역별 평균 구매금액을 구하시오.
 
 local={}
+pay={}
 
 for order in orders:
 
     place=order["지역"]
+    p=order["구매금액"]
     
     if place not in local:
         local[place]=0
+        pay[place]=0
 
     local[place]= local[place] + 1
+    pay[place]= pay[place] + p
+
 
 for place in local:
-    print(place,local[place])
+    print(place,pay[place]/local[place])
+
+                    # 문제9) 회원등급별 평균 구매금액 / VIP 회원과 일반 회원의 평균 구매금액을 구하시오.
+
+grade_sum = {}
+grade_count = {}
+
+for order in orders:
+    grade = order["회원등급"]
+    price = order["구매금액"]
+
+    if grade not in grade_sum:
+        grade_sum[grade] = 0
+        grade_count[grade] = 0
+
+    grade_sum[grade] = grade_sum[grade] + price
+    grade_count[grade] = grade_count[grade] + 1
+
+for grade in grade_sum:
+    avg = grade_sum[grade] / grade_count[grade]
+    print(grade, avg)
+
+                    # 문제10) 가입연수별 그룹 분석 / 가입연수를 기준으로 다음과 같이 그룹을 나누시오. / 0~2년, 3~5년, 6년 이상 각 그룹의 평균 구매금액을 구하시오.
+
+price1 , price2, price3= 0, 0, 0
+num1, num2, num3 = 0, 0, 0
+
+for order in orders:
+    year=order["가입연수"]
+
+    if year <=2:
+        price1= price1 + order["구매금액"]
+        num1= num1 +1
+    if year>2 and year<=5:
+        price2=price2 +order["구매금액"]
+        num2= num2 +1
+    if year>5:
+        price3=price3 +order["구매금액"]
+        num3= num3 +1
+
+print(price1/num1,price2/num2,price3/num3)
