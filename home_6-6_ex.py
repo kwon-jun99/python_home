@@ -11,7 +11,7 @@ orders = [
     {"주문번호": 1010, "고객명": "송혜교", "구매금액": 175000, "가입일": "2017-04-30", "지역": "서울"},
 ]
 
-'''
+
 #자료 갯수 파악
 
 print(len(orders))                    #10
@@ -64,7 +64,44 @@ for order in orders:
         order["구매금액"]=avg
 
 print(orders)
-'''
+
 
                     # 문제5) 회원 가입 연수 계산 (특성 추출) / 현재 연도를 기준으로 회원가입 후 몇 년이 지났는지 계산하여 "가입연수" 컬럼을 추가하시오.
 
+from datetime import datetime
+
+year=datetime.now().year
+
+for order in orders:
+    join_year=order["가입일"].split("-")[0]
+
+    order["가입연수"]= int(year)-int(join_year)
+
+print(orders)
+
+                    #문제6) VIP 여부 생성 (특성 추출) / 구매금액 기준 200000원 이상 → VIP / 200000원 미만 → 일반으로 "회원등급" 컬럼을 추가하시오.
+
+for order in orders:
+    if order["구매금액"] > 200000:
+        order["회원등급"]= "VIP"
+    else:
+        order["회원등급"]= "일반"
+
+print(orders)
+
+                    # 문제 7. 기술통계 / 구매금액에 대한 개수, 합계, 평균, 최대값, 최소값을 출력하시오.
+
+prices=[]
+
+for order in orders:
+    prices.append(order["구매금액"])
+
+print(len(prices))
+print(sum(prices))
+print(sum(prices)/len(prices))
+print(max(prices))
+print(min(prices))
+
+                    # 문제 8. 지역별 평균 구매금액을 구하시오.
+
+print(orders["지역"])
