@@ -104,4 +104,16 @@ print(min(prices))
 
                     # 문제 8. 지역별 평균 구매금액을 구하시오.
 
-print(orders["지역"])
+local={}
+
+for order in orders:
+
+    place=order["지역"]
+    
+    if place not in local:
+        local[place]=0
+
+    local[place]= local[place] + 1
+
+for place in local:
+    print(place,local[place])
